@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block mainbody %}
+
+<div class="w3-content w3-container w3-padding-64">
+    <h3>User Registration</h3>
+    <form method="POST" autocomplete="off">
+        {% csrf_token %}
+        {{registrationForm.as_p}}
+        <input type="submit" value="Register">
+    </form>
+</div>
+{% endblock mainbody %}
