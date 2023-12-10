@@ -1,11 +1,13 @@
 {% extends "base.html" %}
+{% load static %}
+{% block header_image %}{% static 'images/mainbg.jpg' %}{% endblock %}
+{% block min_height_banner %}100%{% endblock min_height_banner %}
+{% block banner_section %}
+  <span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity">QUIZ <span class="w3-hide-small">SYSTEM</span>
+{% endblock banner_section %}
 {% block mainbody %}
 <!-- First Parallax Image with Logo Text -->
-<div class="bgimg-1 w3-display-container w3-opacity-min" id="home">
-    <div class="w3-display-middle" style="white-space:nowrap;">
-      <span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity">QUIZ <span class="w3-hide-small">SYSTEM</span>
-    </div>
-  </div>
+
   
   <!-- Container (About Section) -->
   <div class="w3-content w3-container w3-padding-64" id="about">

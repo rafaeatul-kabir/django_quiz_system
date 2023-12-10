@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% block header_image %}{% static 'images/bg2.jpg' %}{% endblock %}
+{% block banner_section %}
+  <span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity">QUIZ</span>
+{% endblock banner_section %}
+{% block mainbody %}
+<div class="w3-content w3-container w3-padding-64">
+    <h3> Select the right answers</h3>
+    <form method="POST" action="{% url "submit_quiz" %}">
+       {% csrf_token %}
+
+       {% for question in questions %}
+        <p>{{ question.question_body }}</p>
+        <input type="radio" name="option_q{{question.id}}" value="{{ question.option1 }}"><label> A. {{question.option1}}</label><br>            
+        <input type="radio" name="option_q{{question.id}}" value="{{ question.option2 }}"><label> B. {{question.option2}}</label><br>            
+        <input type="radio" name="option_q{{question.id}}" value="{{ question.option3 }}"><label> C. {{question.option3}}</label><br>            
+        <input type="radio" name="option_q{{question.id}}" value="{{ question.option4 }}"><label> D. {{question.option4}}</label><br>            
+        <br>
+       {% endfor %}
+       <input type="submit" value="Submit"/>  
+    </form>
+</div>
+{% endblock mainbody %}

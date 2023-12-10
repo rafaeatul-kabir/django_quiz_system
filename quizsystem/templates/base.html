@@ -26,8 +26,9 @@ body, html {
 
 /* First image (Logo. Full height) */
 .bgimg-1 {
-  background-image: url('{% static 'images/mainbg.jpg' %}');
-  min-height: 100%;
+  {% comment %} background-image: url('{% static 'images/mainbg.jpg' %}'); {% endcomment %}
+  background-image: url("{% block header_image %}{% endblock %}");
+  min-height: {% block min_height_banner %}20%{% endblock min_height_banner %}
 }
 
 
@@ -47,6 +48,8 @@ body, html {
     min-height: 400px;
   }
 }
+{% block css_block %}{% endblock css_block %}
+
 </style>
 </head>
 <body>
@@ -83,6 +86,11 @@ body, html {
 
     {% comment %} <a href="#contact" class="w3-bar-item w3-button" onclick="toggleFunction()">CONTACT</a> {% endcomment %}
     <!-- <a href="#" class="w3-bar-item w3-button">SEARCH</a> -->
+  </div>
+</div>
+<div class="bgimg-1 w3-display-container w3-opacity-min" id="home">
+  <div class="w3-display-middle" style="white-space:nowrap;">
+    {% block banner_section %}{% endblock banner_section %}
   </div>
 </div>
 {% block mainbody %}

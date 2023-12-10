@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css_block %}
+    
+    .selectedOption{
+        background-color: #ff6b6b;
+        padding: 5px;
+        color: white;
+    }
+    .correctAnswer{
+        background-color: #10ac84 !important;
+        padding: 5px;
+        color: white;
+    }
+{% endblock css_block %}
+{% block header_image %}{% static 'images/bg2.jpg' %}{% endblock %}
+{% block banner_section %}
+<span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity">QUIZ <span>SUMMARY</span>
+{% endblock banner_section %}
+
+{% block mainbody %}
+<div class="w3-content w3-container w3-padding-64">
+    <h2>Total Score: {{last_user_record.score}} out of {{ last_user_record.attempts.all|length }}</h2>
+    <h4>Review: </h4>
+    {% for attempt in last_user_record.attempts.all %}
+        <p>{{ attempt.question.question_body }}</p>
+        <input type="radio" name="question_{{ attempt.question.id }}" value="" disabled
+        {% if attempt.question.option1 == attempt.chosen_option %}
+            checked="checked" 
+        {% endif %}
+        >
+        <label
+        class = "
+        {% if attempt.question.option1 == attempt.chosen_option %}
+            selectedOption
+        {% endif %}
+        {% if attempt.question.option1 == attempt.question.answer %}
+            correctAnswer
+        {% endif %}"
+        >{{ attempt.question.option1 }}</label>
+        <br>
+        
+
+        <input type="radio" name="question_{{ attempt.question.id }}" value="" disabled
+        {% if attempt.question.option2 == attempt.chosen_option %}
+            checked="checked" 
+        {% endif %}
+        >
+        <label
+        class = "
+        {% if attempt.question.option2 == attempt.chosen_option %}
+            selectedOption
+        {% endif %}
+        {% if attempt.question.option2 == attempt.question.answer %}
+            correctAnswer
+        {% endif %}"
+        >{{ attempt.question.option2 }}</label>
+        <br>
+
+
+        <input type="radio" name="question_{{ attempt.question.id }}" value="" disabled
+        {% if attempt.question.option3 == attempt.chosen_option %}
+            checked="checked" 
+        {% endif %}
+        >
+        <label
+        class = "
+        {% if attempt.question.option3 == attempt.chosen_option %}
+            selectedOption
+        {% endif %}
+        {% if attempt.question.option3 == attempt.question.answer %}
+            correctAnswer
+        {% endif %}"
+        >{{ attempt.question.option3 }}</label>
+        <br>
+
+
+        <input type="radio" name="question_{{ attempt.question.id }}" value="" disabled
+        {% if attempt.question.option4 == attempt.chosen_option %}
+            checked="checked" 
+        {% endif %}
+        >
+        <label
+        class = "
+        {% if attempt.question.option4 == attempt.chosen_option %}
+            selectedOption
+        {% endif %}
+        {% if attempt.question.option4 == attempt.question.answer %}
+            correctAnswer
+        {% endif %}"
+        >{{ attempt.question.option4 }}</label>
+        <br>
+    {% endfor %}
+</div>
+{% endblock mainbody %}

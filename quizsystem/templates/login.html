@@ -1,4 +1,10 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block header_image %}{% static 'images/bg1.jpg' %}{% endblock %}
+{% block banner_section %}
+  <span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity">USER <span class="w3-hide-small">LOGIN</span>
+{% endblock banner_section %}
 {% block mainbody %}
 
 <div class="w3-content w3-container w3-padding-64">
