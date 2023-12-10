@@ -6,7 +6,7 @@
 {% endblock banner_section %}
 {% block mainbody %}
 <div class="w3-content w3-container w3-padding-64">
-    <h1> Welcome, {{user.username}}</h1>
+    <h1> Welcome, {{user.first_name}} {{user.last_name}}</h1>
     <h3>Select Topics</h3>
     <form method="POST" action="{% url 'quiz' %}">
        {% csrf_token %}

@@ -41,9 +41,11 @@ def login(request):
 def dashboard(request):
     #getting the topics
     topics = models.Topic.objects.all()
-
+    # getting user's quiz records'
+    user_record = models.UserRecord.objects.filter(user=request.user)
     context = {
         'user': request.user,
+        'quizes': user_record,
         'topics': topics
     }
     return render(request, 'dashboard.html', context=context)
