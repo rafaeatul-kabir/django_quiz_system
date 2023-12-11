@@ -1,5 +1,5 @@
 import random
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from . forms import CreateUserForm, UserLoginForm
 from django.contrib.auth.models import auth
 from django.contrib.auth import authenticate, login, logout
@@ -91,12 +91,13 @@ def submit_quiz(request):
         user_record.attempts.set(attempts_list)
         user_record.score = score
         user_record.save()
-        return redirect('/result')
+        # return redirect('/result', quiz_id=user_record.id)
+        return redirect(reverse('result', kwargs={'quiz_id': user_record.id}))
 
 @login_required(login_url="login")
-def result(request):
+def result(request, quiz_id):
     user = request.user
-    last_user_record = models.UserRecord.objects.filter(user=request.user).order_by('-timestamp').first()
+    last_user_record = models.UserRecord.objects.get(pk=quiz_id)
     context = {'last_user_record': last_user_record}
     return render(request, 'result.html', context=context)
 

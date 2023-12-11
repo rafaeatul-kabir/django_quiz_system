@@ -35,6 +35,9 @@ class UserQuestionAttempt(models.Model):
         # Compare the chosen option with the correct answer of the question
         self.is_correct = self.chosen_option == self.question.answer
         super().save(*args, **kwargs)
+    
+    def __str__(self):
+        return f"Question: {self.question.question_body[:50]} - Chosen Option: {self.chosen_option} - Correct: {self.is_correct}"
 
 
 class UserRecord(models.Model):

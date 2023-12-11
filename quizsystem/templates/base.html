@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
 body, html {
@@ -15,7 +16,16 @@ body, html {
   color: #777;
   line-height: 1.8;
 }
-
+.primary-btn{
+  margin-top: 1rem;
+  background-color: #01a3a4;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+}
 /* Create a Parallax Effect */
 .bgimg-1, .bgimg-2, .bgimg-3 {
   background-attachment: fixed;
@@ -60,18 +70,20 @@ body, html {
     <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
       <i class="fa fa-bars"></i>
     </a>
-    <a href="{%url 'home' %}" class="w3-bar-item w3-button">HOME</a>
-    {% comment %} <a href="#about" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user"></i> ABOUT</a> {% endcomment %}
+    <a href="{%url 'home' %}" class="w3-bar-item w3-button"><i class="fa fa-home"></i>HOME</a>
+    <a href="{%url 'home' %}#about" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-info"></i> ABOUT</a>
+    <a href="{%url 'home' %}#contact" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-envelope"></i> CONTACT</a>
+    <span style="float: right;">
     {% if not request.user.is_authenticated %}
-    <a href="{%url 'register' %}" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-th"></i> REGISTER</a>
-    <a href="{%url 'login' %}" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-th"></i> LOGIN</a>
+    <a href="{%url 'register' %}" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user-plus"></i> REGISTER</a>
+    <a href="{%url 'login' %}" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user"></i>LOGIN</a>
     {% else %} 
     <a href="{%url 'dashboard' %}" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-th"></i> DASHBOARD</a>
-    <a href="{%url 'logout' %}" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-th"></i> LOGOUT</a>
+    <a href="{%url 'logout' %}" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-power-off"></i> LOGOUT</a>
     {% endif %}
+    </span>
     
     
-    {% comment %} <a href="#contact" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-envelope"></i> CONTACT</a> {% endcomment %}
     <!-- <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">
       <i class="fa fa-search"></i>
     </a> -->
@@ -79,12 +91,16 @@ body, html {
 
   <!-- Navbar on small screens -->
   <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
-    {% comment %} <a href="#about" class="w3-bar-item w3-button" onclick="toggleFunction()">ABOUT</a> {% endcomment %}
+    <a href="{%url 'home' %}#contact" class="w3-bar-item w3-button" onclick="toggleFunction()">CONTACT</a> 
+    <a href="{%url 'home' %}#about" class="w3-bar-item w3-button" onclick="toggleFunction()">ABOUT</a> 
+    {% if not request.user.is_authenticated %}
     <a href="{%url 'register' %}" class="w3-bar-item w3-button" onclick="toggleFunction()">REGISTER</a>
     <a href="{%url 'login' %}" class="w3-bar-item w3-button" onclick="toggleFunction()">LOGIN</a>
+    {% else %} 
+    <a href="{%url 'dashboard' %}" class="w3-bar-item w3-button" onclick="toggleFunction()">DASHBOARD</a>
     <a href="{%url 'logout' %}" class="w3-bar-item w3-button" onclick="toggleFunction()">LOGOUT</a>
-
-    {% comment %} <a href="#contact" class="w3-bar-item w3-button" onclick="toggleFunction()">CONTACT</a> {% endcomment %}
+    {% endif %}
+    
     <!-- <a href="#" class="w3-bar-item w3-button">SEARCH</a> -->
   </div>
 </div>
@@ -98,15 +114,9 @@ body, html {
 <!-- Footer -->
 <footer class="w3-center w3-black w3-padding-64 w3-opacity w3-hover-opacity-off">
   <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
-  <div class="w3-xlarge w3-section">
-    <i class="fa fa-facebook-official w3-hover-opacity"></i>
-    <i class="fa fa-instagram w3-hover-opacity"></i>
-    <i class="fa fa-snapchat w3-hover-opacity"></i>
-    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
-    <i class="fa fa-twitter w3-hover-opacity"></i>
-    <i class="fa fa-linkedin w3-hover-opacity"></i>
-  </div>
+  
   <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></p>
+  <p>Developed by <strong><a href="https://github.com/Shipram-IT" target="_blank" rel="noopener noreferrer">ShiRaPaM</a></strong> &copy;2023</p>
 </footer>
  
 <script>
