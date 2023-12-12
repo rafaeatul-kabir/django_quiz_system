@@ -71,27 +71,26 @@ def get_questions(request):
 def submit_quiz(request):
     if request.method == 'POST':
         selected_options = {key: value for key, value in request.POST.items() if key.startswith('option_q')}
+        print(selected_options)
         attempts_list = []
         user = request.user
         score =0
-        question_with_answer = []
         for key,value in selected_options.items():
             question_id = key.replace("option_q", "")
-            chosen_option = value
+            if "option_q" in value:
+                chosen_option=""
+            else:
+                chosen_option = value
             question = models.Question.objects.get(pk=question_id)
             attempt = models.UserQuestionAttempt(user=user, question=question, chosen_option=chosen_option)
             attempt.save()
             score+=int(attempt.is_correct)
-            question_answer = {'question': question, 'selected': value}
-            question_with_answer.append(question_answer)
             attempts_list.append(attempt)
-        
         user_record = models.UserRecord.objects.create(user=user)
         user_record.save()
         user_record.attempts.set(attempts_list)
         user_record.score = score
         user_record.save()
-        # return redirect('/result', quiz_id=user_record.id)
         return redirect(reverse('result', kwargs={'quiz_id': user_record.id}))
 
 @login_required(login_url="login")

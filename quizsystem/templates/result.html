@@ -7,11 +7,18 @@
         padding: 5px;
         color: white;
     }
+    .msg, .sts-wrong{
+        color: #ff6b6b;
+    }
+    .sts-right{
+        color: #10ac84;
+    }
     .correctAnswer{
         background-color: #10ac84 !important;
         padding: 5px;
         color: white;
     }
+
 {% endblock css_block %}
 {% block header_image %}{% static 'images/bg2.jpg' %}{% endblock %}
 {% block banner_section %}
@@ -23,7 +30,19 @@
     <h2>Total Score: {{last_user_record.score}} out of {{ last_user_record.attempts.all|length }}</h2>
     <h4>Review: </h4>
     {% for attempt in last_user_record.attempts.all %}
-        <p>{{ attempt.question.question_body }}</p>
+        
+        <p>{{ attempt.question.question_body }}
+        <span >
+            {% if attempt.is_correct %}
+                <i class="fa fa-check sts-right"></i>
+            {% else %}
+                <i class="fa fa-times sts-wrong"></i>
+            {% endif %}
+        </span>
+        </p>
+        {% if not attempt.chosen_option %}
+        <label class="msg"><small>Question not attempted!</small></label><br>
+        {% endif %}
         <input type="radio" name="question_{{ attempt.question.id }}" value="" disabled
         {% if attempt.question.option1 == attempt.chosen_option %}
             checked="checked" 
