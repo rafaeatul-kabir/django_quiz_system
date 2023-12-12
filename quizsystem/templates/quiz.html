@@ -12,13 +12,25 @@
 
        {% for question in questions %}
         <p>{{ question.question_body }}</p>
-        <input type="radio" name="option_q{{question.id}}" value="{{ question.option1 }}"><label> A. {{question.option1}}</label><br>            
-        <input type="radio" name="option_q{{question.id}}" value="{{ question.option2 }}"><label> B. {{question.option2}}</label><br>            
-        <input type="radio" name="option_q{{question.id}}" value="{{ question.option3 }}"><label> C. {{question.option3}}</label><br>            
-        <input type="radio" name="option_q{{question.id}}" value="{{ question.option4 }}"><label> D. {{question.option4}}</label><br>            
+        <input hidden type="text" id="option_q{{question.id}}" name="option_q{{question.id}}" value="option_q{{question.id}}"/>
+        <input type="radio" name="option_q{{question.id}}" value="{{ question.option1 }}" id="radiofor_q1{{question.id}}" onclick="clearField('option_q{{question.id}}')"><label for="radiofor_q1{{question.id}}"> A. {{question.option1}}</label><br>            
+        <input type="radio" name="option_q{{question.id}}" value="{{ question.option2 }}" id="radiofor_q2{{question.id}}" onclick="clearField('option_q{{question.id}}')"><label for="radiofor_q2{{question.id}}"> B. {{question.option2}}</label><br>            
+        <input type="radio" name="option_q{{question.id}}" value="{{ question.option3 }}" id="radiofor_q3{{question.id}}" onclick="clearField('option_q{{question.id}}')"><label for="radiofor_q3{{question.id}}"> C. {{question.option3}}</label><br>            
+        <input type="radio" name="option_q{{question.id}}" value="{{ question.option4 }}" id="radiofor_q4{{question.id}}" onclick="clearField('option_q{{question.id}}')"><label for="radiofor_q4{{question.id}}"> D. {{question.option4}}</label><br>            
         <br>
        {% endfor %}
        <input type="submit" class="primary-btn" value="Submit"/>  
     </form>
+
+    <script>
+      function clearField(inputId) {
+        var inputElement = document.getElementById(inputId);
+        if (inputElement) {
+          inputElement.value = '';
+        } else {
+          console.error('Input element with ID ' + inputId + ' not found.');
+        }
+      }
+    </script>
 </div>
 {% endblock mainbody %}

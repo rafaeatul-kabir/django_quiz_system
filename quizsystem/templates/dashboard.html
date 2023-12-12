@@ -41,14 +41,16 @@
     </div>
     <div class="topic-div">
       <h3>Select Topics</h3>
-      <form method="POST" action="{% url 'quiz' %}">
+      <form method="POST" action="{% url 'quiz' %}" id="myForm">
         {% csrf_token %}
         {% for topic in topics %}
-          <input type="checkbox" name="selected_topics" value="{{ topic.id }}">
-          <label>{{ topic.name }}</label>
+          <input type="checkbox" name="selected_topics" value="{{ topic.id }}" id="checkbox{{topic.id}}">
+          <label for="checkbox{{topic.id}}">{{ topic.name }}</label>
           <br>
         {% endfor %}
-        <input type="submit" class="primary-btn" value="Go For Quiz!"/>  
+        
+        <input type="submit" id="submitButton" class="primary-btn" value="Go For Quiz!"/> 
+        <label id="message"><em>Select at least one topic to start quiz!</em></label> 
       </form>
     </div>
     <div class="quiz-history">
@@ -67,4 +69,32 @@
       {% endif %}
       </div>  
 </div>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Get references to the checkboxes, submit button, and message element
+    var checkboxes = document.querySelectorAll('input[name="selected_topics"]');
+    var submitButton = document.getElementById('submitButton');
+    var messageElement = document.getElementById('message');
+
+    // Add an event listener to each checkbox
+    checkboxes.forEach(function(checkbox) {
+      checkbox.addEventListener('change', updateSubmitButton);
+    });
+
+    // Function to check if at least one checkbox is checked and enable/disable the submit button accordingly
+    function updateSubmitButton() {
+      var atLeastOneChecked = Array.from(checkboxes).some(function(checkbox) {
+        return checkbox.checked;
+      });
+
+      submitButton.disabled = !atLeastOneChecked;
+
+      // Show/hide the message based on the button's disabled state
+      messageElement.style.display = submitButton.disabled ? 'block' : 'none';
+    }
+
+    // Disable the submit button onload
+    updateSubmitButton();
+  });
+</script>
 {% endblock mainbody %}
